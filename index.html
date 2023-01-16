@@ -1,0 +1,129 @@
+<html>
+
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var cube = document.createElement('div');
+            cube.style.width = '100px';
+            cube.style.height = '100px';
+            cube.style.position = 'absolute';
+            cube.style.top = '50%';
+            cube.style.left = '50%';
+            cube.style.marginLeft = '-50px';
+            cube.style.marginTop = '-50px';
+            cube.style.webkitTransformStyle = 'preserve-3d';
+            cube.style.webkitTransform = 'rotateX(0deg) rotateY(0deg)';
+            document.body.appendChild(cube);
+
+            var faces = ['SKLZY', 'SKLZY', 'SKLZY', 'SKLZY', 'SKLZY', 'SKLZY'];
+            for (var i = 0; i < faces.length; i++) {
+                var face = document.createElement('div');
+                face.style.width = '100px';
+                face.style.height = '100px';
+                face.style.position = 'absolute';
+                face.style.fontSize = '20px';
+                face.style.fontFamily = 'Arial';
+                face.style.textAlign = 'center';
+                face.style.lineHeight = '100px';
+                face.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                face.innerHTML = faces[i];
+                switch (i) {
+                    case 0:
+                        face.style.webkitTransform = 'translateZ(50px)';
+                        break;
+                    case 1:
+                        face.style.webkitTransform = 'rotateY(90deg) translateZ(50px)';
+                        break;
+                    case 2:
+                        face.style.webkitTransform = 'rotateY(180deg) translateZ(50px)';
+                        break;
+                    case 3:
+                        face.style.webkitTransform = 'rotateY(-90deg) translateZ(50px)';
+                        break;
+                    case 4:
+                        face.style.webkitTransform = 'rotateX(90deg) translateZ(50px)';
+                        break;
+                    case 5:
+                        face.style.webkitTransform = 'rotateX(-90deg) translateZ(50px)';
+                        break;
+                }
+                cube.appendChild(face);
+            }
+
+            var x = 0;
+            var y = 0;
+            var lastX = 0;
+            var lastY = 0;
+            var dragging = false;
+
+            cube.addEventListener('mousedown', function (e) {
+                lastX = e.clientX;
+                lastY = e.clientY;
+                dragging = true;
+            }, false);
+
+            document.addEventListener('mousemove', function (e) {
+                if (dragging) {
+                    x += e.clientX - lastX;
+                    y += e.clientY - lastY;
+                    cube.style.webkitTransform = 'rotateX(' + y + 'deg) rotateY(' + x + 'deg)';
+                    lastX = e.clientX;
+                    lastY = e.clientY;
+                }
+            }, false);
+
+            document.addEventListener('mouseup', function (e) {
+                dragging = false;
+            }, false);
+
+            document.body.style.webkitUserSelect = 'none';
+
+            var faces = cube.childNodes;
+            for (var i = 0; i < faces.length; i++) {
+                faces[i].style.color = '#FF00FF';
+                faces[i].style.backgroundColor = '#00FF00';
+            }
+
+            var faces = cube.childNodes;
+            for (var i = 0; i < faces.length; i++) {
+                faces[i].style.border = '1px solid #000000';
+            }
+
+            var faces = cube.childNodes;
+            for (var i = 0; i < faces.length; i++) {
+                faces[i].style.fontWeight = 'bold';
+            }
+
+            document.body.style.background = '#000000 url(http://www.publicdomainpictures.net/pictures/40000/velka/starry-sky-background.jpg)';
+
+            var stars = [];
+            for (var i = 0; i < 100; i++) {
+                var star = document.createElement('div');
+                star.style.width = '1px';
+                star.style.height = '1px';
+                star.style.position = 'absolute';
+                star.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
+                star.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
+                star.style.backgroundColor = '#FFFFFF';
+                document.body.appendChild(star);
+                stars.push(star);
+            }
+
+            setInterval(function () {
+                for (var i = 0; i < stars.length; i++) {
+                    stars[i].style.opacity = Math.random();
+                }
+            }, 100);
+
+            var x = 0;
+            var y = 0;
+            setInterval(function () {
+                x += 1;
+                y += 1;
+                cube.style.webkitTransform = 'rotateX(' + y + 'deg) rotateY(' + x + 'deg)';
+            }, 10);
+        });
+    </script>
+</head>
+<html>
